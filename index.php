@@ -52,7 +52,6 @@
                     </div >
             </div>
         </div>
-        <div id="menu">
             <nav>
                 <ul>
                     <li><a href="">Laptopy i tablety</a></li>
@@ -62,11 +61,16 @@
                     <li><a href="">Akcesoria</a></li>
                 </ul>
             </nav>
-
-        </div>
         <div class="items">
 
-            <div class="row text-center py-5">
+
+            <div class="paragraph">
+                Bestsellery
+            </div>
+
+            <div class="row text-center py-5 ">
+
+
                 <?php
                 $items = get_items("okazja");
                 while ($row = mysqli_fetch_array($items, MYSQLI_ASSOC))
@@ -75,9 +79,8 @@
 
                 }
                 ?>
+
             </div>
-
-
         </div>
     </div>
 
