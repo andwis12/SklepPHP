@@ -1,0 +1,61 @@
+
+
+body
+{
+    min-height: 100vh;
+    background-image: linear-gradient(100deg,#0C68F1,#F0F0F0);
+}
+
+
+.login-form
+{
+    padding:30px;
+    width:300px;
+    height:580px;
+    background-color: #F0F0F0;
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+
+}
+
+.login-form h1
+{
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 100px;
+}
+
+.txtb
+{
+    text-align: center;
+    position:relative;
+    height:25px;
+    margin:40px 0;
+
+}
+
+.txtb input
+{
+    width:100%;
+    height:45px;
+    border-radius: 15px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.logbtn
+{
+    color:white;
+    background: #0C68F1;
+    display:block;
+    width:100%;
+    border-radius: 15px;
+    height:50px;
+}
+
+.bottom-text
+{
+    margin: 10px;
+}
