@@ -8,7 +8,7 @@ body
 {
     background-color: white;
     width:80%;
-    height:1000px;
+    height:100%;
     margin-left:auto;
     margin-right:auto;
 
@@ -65,7 +65,7 @@ body
     background-color: #0C68F1;
     border-left:0;
     padding:0 0.75em;
-    height:36px;
+    height:42px;
     color:white;
     font-weight: bold;
     cursor:pointer;
@@ -90,7 +90,7 @@ body
 
 #menu
 {
-    height:60px;
+    height:50px;
     width:75%;
     background: #0C68F1;
     margin-left:auto;
@@ -104,7 +104,7 @@ nav a
     text-align: center;
     color:#fff;
     display: block;
-    padding:20px;
+    padding:10px;
 
 }
 
@@ -117,4 +117,59 @@ nav ul
 nav li
 {
     flex: 1 1 0;
+}
+
+.items
+{
+    width:75%;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.col-md-3
+{
+    font-weight: bold;
+    font-size:15px;
+}
+
+.card_shadow
+{
+    border: 1px solid #333;
+    background-color: #f1f1f1;
+    border-radius:5px;
+    padding: 16px;
+    margin-bottom: 20px;
+    height:500px;
+
+}
+
+.card_shadow input
+{
+    margin-bottom:0px;
+}
+
+.to-cart-button
+{
+    margin-top: 10px;
+    height:35px;
+    width:100%;
+    background: none;
+    border: 1px solid #0C68F1;
+    border-radius:5px;
+}
+
+.card_shadow h4
+{
+    margin-bottom: 20px;
+}
+
+.to-cart-button:hover
+{
+    background-color: #0C68F1;
+    color:white;
+}
+
+.card_shadow img
+{
+    height:180px;
 }
