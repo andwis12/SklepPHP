@@ -1,0 +1,120 @@
+body
+{
+    background-color: gray;
+
+}
+
+#main_container
+{
+    background-color: white;
+    width:80%;
+    height:1000px;
+    margin-left:auto;
+    margin-right:auto;
+
+}
+
+#top
+{
+    width:75%;
+    height:100px;
+    margin-left:auto;
+    margin-right:auto;
+    display: flex;
+    flex-direction: row;
+
+}
+
+#logo
+{
+    margin-left:30px;
+    margin-top:10px;
+    width:200px;
+    height:100px;
+
+
+}
+
+#search
+{
+    width:350px;
+    height:100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+
+
+#search input
+{
+    width:300px;
+    font-size: inherit;
+    border: 2px solid #0C68F1;
+    border-radius: 0.5em 0 0 0.5em;
+    padding: 0.2em 0.5em;
+    outline: 0;
+}
+
+
+.search-box-button
+{
+    font-size: inherit;
+    border: 2px solid #0C68F1;
+    border-radius: 0  0.5em 0.5em 0;
+    background-color: #0C68F1;
+    border-left:0;
+    padding:0 0.75em;
+    height:36px;
+    color:white;
+    font-weight: bold;
+    cursor:pointer;
+}
+
+#login
+{
+    width:120px;
+    height:40px;
+    margin:auto;
+    margin-right: 30px;
+    display:inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size:15px;
+}
+#login:hover
+{
+    border-radius: 0.2em;
+    border: 1px solid #0C68F1;
+}
+
+#menu
+{
+    height:60px;
+    width:75%;
+    background: #0C68F1;
+    margin-left:auto;
+    margin-right:auto;
+    position:relative;
+}
+
+nav a
+{
+    text-decoration: none;
+    text-align: center;
+    color:#fff;
+    display: block;
+    padding:20px;
+
+}
+
+nav ul
+{
+    display:flex;
+    list-style-type: none;
+}
+
+nav li
+{
+    flex: 1 1 0;
+}
