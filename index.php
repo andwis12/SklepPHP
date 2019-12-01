@@ -34,33 +34,38 @@
                 <input type="text" name="box" placeholder="Czego szukasz?" align="center"/>
                 <button class="search-box-button">&#128269;</button>
             </div>
+            <div class ="shopping-cart">
+
+            </div>
             <div id="login">
                 <div>
                     <img src="user-profile.png">
                 </div>
-                    <div>
-                        <?php
-                            if(!isset($_SESSION['user']))
-                            {
-                                echo "Zaloguj się \n Załóż konto";
-                                header('login.php');
-                            }else
-                            {
-                                echo "Moje konto \n Wyloguj";
-                            }
-                        ?>
-                    </div >
+                    <?php
+                    if(isset($_SESSION['user']))
+                    {
+                        display_if_user_logged();
+
+                    }else
+                    {
+                        display_if_user_not_logged();
+                    }
+                    ?>
             </div>
         </div>
-            <nav>
-                <ul>
-                    <li><a href="">Laptopy i tablety</a></li>
-                    <li><a href="">Telefony i GPS</a></li>
-                    <li><a href="">Komputery stacjonarne</a></li>
-                    <li><a href="">Podzespoły komputerowe</a></li>
-                    <li><a href="">Akcesoria</a></li>
-                </ul>
-            </nav>
+
+
+
+
+        <nav>
+            <ul>
+                <li><a href="">Laptopy i tablety</a></li>
+                <li><a href="">Telefony i GPS</a></li>
+                <li><a href="">Komputery stacjonarne</a></li>
+                <li><a href="">Podzespoły komputerowe</a></li>
+                <li><a href="">Akcesoria</a></li>
+            </ul>
+        </nav>
         <div class="items">
 
 
@@ -75,7 +80,7 @@
                 $items = get_items("okazja");
                 while ($row = mysqli_fetch_array($items, MYSQLI_ASSOC))
                 {
-                    display_item($row['ProductName'],$row['Price'],$row['ProductImage']);
+                    display_item($row['ProductName'],$row['Price'],$row['ProductImage'],$row['ProductId']);
 
                 }
                 ?>

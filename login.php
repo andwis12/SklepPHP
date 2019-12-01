@@ -9,28 +9,51 @@
 </head>
 
 <body>
-    <form class="login-form" action="zaloguj.php" method="post">
-        <h1>Login</h1>
-        <div class="txtb">
-            <input type="text" placeholder="Username" name="login">
+    <div class="hero">
+        <div class="form-box">
+            <div class="button-box">
+                <div id="btn"></div>
+                <button type="button" class="toggle-btn" onclick="login()">Log In</button>
+                <button type="button" class="toggle-btn" onclick="register()">Register</button>
+            </div>
+            <form id="login" class="input-group" action="zaloguj.php" method="post">
+                <input type="text" class="input-field" placeholder="Username" required name="login">
+                <input type="text" class="input-field" placeholder="Password" required name="password">
+                <button type="submit" class="submit-btn">Zaloguj</button>
+
+            </form>
+
+            <form id="register" class="input-group" action="registration.php" method="post">
+                <input type="text" class="input-field" placeholder="Username" name="login" required >
+                <input type="email" class="input-field" placeholder="Email" name="email" required>
+                <input type="text" class="input-field" placeholder="Password"name="password" required >
+                <button type="submit" class="submit-btn">Zarejestruj</button>
+            </form>
         </div>
+    </div>
 
-        <div class="txtb">
-            <input type="password" placeholder="Password" name="password">
+    <script>
+        var x = document.getElementById("login");
+        var y = document.getElementById("register");
+        var z = document.getElementById("btn");
 
-        </div>
+        function register()
+        {
+            x.style.left = "-400px";
+            y.style.left = "50px";
+            z.style.left = "110px";
+        }
 
-        <input type="submit" class="logbtn" value="Login">
+        function login()
+        {
+            x.style.left = "50px";
+            y.style.left = "450px";
+            z.style.left = "0px";
+        }
+
+    </script>
 
 
-        <div class="bottom-text">
-            Don't have account sign up here
-        </div>
 
-
-    </form>
-
-
-
-<body>
+</body>
 </html>

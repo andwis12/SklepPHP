@@ -1,6 +1,7 @@
 <?php
 
 require_once('db.php');
+require_once('account.php');
 
 
 function get_items($category)
@@ -22,7 +23,7 @@ function get_items($category)
 
 }
 
-function display_item($name,$prize,$image)
+function display_item($name,$prize,$image,$id)
 {
     $template = "
     
@@ -38,7 +39,7 @@ function display_item($name,$prize,$image)
                  </br>
            
                 
-                <input type=\"submit\" class=\"to-cart-button mt-auto\" value=\"Do koszyka\">
+               <a href=\"AddToCart.php?action=addToCart&id=$id\">Do koszyka</a>
             
         
         </div>
@@ -49,3 +50,4 @@ function display_item($name,$prize,$image)
     echo $template;
 
 }
+
