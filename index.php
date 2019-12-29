@@ -2,9 +2,6 @@
 <?php
     session_start();
     require_once('Items.php');
-
-
-
 ?>
 
 
@@ -28,44 +25,85 @@
     <div id="main_container">
         <div id="top">
             <div id="logo">
+                <a href="index.php">
                 <img src="logo.png">
+                </a>
             </div>
             <div id="search">
                 <input type="text" name="box" placeholder="Czego szukasz?" align="center"/>
                 <button class="search-box-button">&#128269;</button>
             </div>
-            <div class ="shopping-cart">
 
-            </div>
-            <div id="login">
-                <div>
-                    <img src="user-profile.png">
+            <div class="properties">
+                <div class ="shopping-cart">
+                    <div>
+                        <img src="shopping-cart.png">
+                    </div>
+                    <a href="koszyk.php">
+                        Koszyk
+                    </a>
                 </div>
-                    <?php
-                    if(isset($_SESSION['user']))
-                    {
-                        display_if_user_logged();
-
-                    }else
-                    {
-                        display_if_user_not_logged();
-                    }
-                    ?>
+                <div id="login">
+                    <div>
+                        <img src="user-profile.png">
+                    </div>
+                        <?php
+                        if(isset($_SESSION['user']))
+                        {
+                            display_if_user_logged();
+                        }else
+                        {
+                            display_if_user_not_logged();
+                        }
+                        ?>
+                </div>
             </div>
         </div>
-
-
-
-
         <nav>
             <ul>
-                <li><a href="">Laptopy i tablety</a></li>
-                <li><a href="">Telefony i GPS</a></li>
-                <li><a href="">Komputery stacjonarne</a></li>
-                <li><a href="">Podzespoły komputerowe</a></li>
-                <li><a href="">Akcesoria</a></li>
+                <li><a href="category.php?category=Laptopy i tablety">Laptopy i tablety</a></li>
+                <li><a href="category.php?category=Telefony i GPS">Telefony i GPS</a></li>
+                <li><a href="category.php?category=Komputery stacjonarne">Komputery stacjonarne</a></li>
+                <li><a href="category.php?category=Podzespoły komputerowe">Podzespoły komputerowe</a></li>
+                <li><a href="category.php?category=Akcesoria">Akcesoria</a></li>
             </ul>
         </nav>
+        <div class="wrapper">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                    <img class="d-block w-100" src="1.jpg" alt="First slide">
+                    </div>
+                    <div class="carousel-item">
+                    <img class="d-block w-100" src="2.jpg" alt="Second slide">
+                    </div>
+                    <div class="carousel-item">
+                    <img class="d-block w-100" src="3.jpg" alt="Third slide">
+                    </div>
+                    <div class="carousel-item">
+                    <img class="d-block w-100" src="4.jpg" alt="Third slide">
+                    </div>
+                    <div class="carousel-item">
+                    <img class="d-block w-100" src="5.jpg" alt="Third slide">
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
         <div class="items">
 
 
@@ -81,12 +119,13 @@
                 while ($row = mysqli_fetch_array($items, MYSQLI_ASSOC))
                 {
                     display_item($row['ProductName'],$row['Price'],$row['ProductImage'],$row['ProductId']);
-
                 }
                 ?>
 
             </div>
         </div>
+        <?php print_footer();
+        ?>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

@@ -23,9 +23,29 @@ if(isset($_REQUEST['action']) && !empty($_REQUEST['action'])){
 
             $item = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
-            $_SESSION['ItemsCart'][] = $item;
+            if(isset($_SESSION['ItemsCart']))
+            {
 
-            print_r($_SESSION['ItemsCart']);
+                if(!in_array($item,$_SESSION['ItemsCart']))
+                {
+                    $item['quantity']=1;
+                    $_SESSION['ItemsCart'][] = $item;
+                    
+                    if(isset($_SESSION['itemscount']))
+                        $_SESSION['itemscount']+=1;
+                    else $_SESSION['itemscount']=1;
+
+
+                    echo $item['ProductName'];
+                }
+            }else
+            {
+                $item['quantity']=1;
+                $_SESSION['ItemsCart'][] = $item;
+                $_SESSION['itemscount']=1;
+                
+            }
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
 
         }
 
