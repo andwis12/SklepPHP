@@ -1,6 +1,5 @@
 <?php
 
-require_once('db.php');
 session_start();
 
 if(isset($_REQUEST['action']) && !empty($_REQUEST['action']))
@@ -8,8 +7,6 @@ if(isset($_REQUEST['action']) && !empty($_REQUEST['action']))
     if($_REQUEST['action'] == 'delete')
     {
         $productID = $_REQUEST['id'];
-
-        echo $productID;
 
         unset($_SESSION['ItemsCart'][$productID]);
 
@@ -29,7 +26,6 @@ if($_SESSION['itemscount']==0)
         unset($_SESSION['ItemsCart']);
     }
 }
-
 
 header('Location: ' . $_SERVER['HTTP_REFERER']);
 

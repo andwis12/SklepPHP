@@ -13,16 +13,18 @@
             echo "Error : ".$connection->connect_errno;
         }else
         {
-            $adress = $_POST['adress'];
+            $city = $_POST['City'];
+            $postalcode = $_POST['PostalCode'];
+            $adress = $_POST['Adress'];
 
-            $query = "SELECT Adress FROM customeradress WHERE Adress='$adress'";
+            $query = "SELECT Adress FROM customeradress WHERE Adress='$adress' AND PostalCode='$postalcode' AND Adress='$adress'";
 
             if($result = @$connection->query($query))
             {
                 $adresses = $result->num_rows;
                 if($adresses==0)
                 {
-                    $insert = "INSERT into customeradress(CustomerId,Adress) VALUES ('$id','$adress')";
+                    $insert = "INSERT into customeradress(CustomerId,City,PostalCode,Adress) VALUES ('$id','$city','$postalcode','$adress')";
                     $connection->query($insert);
                 }
             }

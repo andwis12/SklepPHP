@@ -1,9 +1,8 @@
 <?php
 
-include_once('account.php');
+require_once('account.php');
 require_once('Items.php');
 session_start();
-
 
 if(isset($_REQUEST['id']) && !empty($_REQUEST['id']))
 {
@@ -151,38 +150,67 @@ $result2 =  @$connection->query("SELECT * FROM customeradress  WHERE CustomerId=
                         </form> 
                     </div>
                 </tr>
-                <tr>
-                    <div class="user-txt">
-                        <td>Adresy:</td>
-                        <td>
-                            <label>
-                                <select>
-                                    <?php
-                                        while($row = mysqli_fetch_array($result2, MYSQLI_ASSOC))
-                                        {
-                                            echo '<option>'.$row["Adress"].'</option>';
-                                        }
-                                    ?>
-                                </select>
-                            </label>
-                        </td>
-                        <form id="login" class="input-group" action="AddAdress.php?id=<?php echo"$id" ?>" method="post">
-                         <td>   
-                            <input type="text" class="input-field" required name="adress">
-                        </td>
-                        <td>
-                            <button type="submit" class="submit-btn">Dodaj</button>
-                        </td>
-                        </form> 
-                    </div>
-                </tr>
+               
             </tbody>
             </table>
+            <h4>Adresy</h4>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Miasto</th>
+                    <th scope="col">Kod Pocztowy</th>
+                    <th scope="col">Adres</th>
+                    <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                        display_user_adresses($id);
+                    ?>
+                    <tr>
+                            <td>+</td>
+                        <form action="AddAdress.php?id=<?php echo"$id" ?>" method="post">
+                            <td><input type="text" class="input-field" required name="City"></td>
+                            <td><input type="text" class="input-field" required name="PostalCode"></td>
+                            <td><input type="text" class="input-field" required name="Adress"></td>
+                            <td> <button type="submit" class="submit-btn">Dodaj Adress</button></td>
+                        </form>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+        <div class="user-info">
+            <h1>Twoje zamowienia</h1>
+            <?php
+                display_user_orders();
+            ?>
+
+
+        
+        </div>
+        <?php print_footer();
+        ?>
     </div>
    
 
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
 
+        for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+            content.style.display = "none";
+            } else {
+            content.style.display = "block";
+            }
+        });
+        }
+    </script>                                   
 
 
     

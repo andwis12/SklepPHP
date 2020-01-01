@@ -1,7 +1,8 @@
 <!DOCTYPE HTML>
 <?php
-    session_start();
     require_once('Items.php');
+    require_once('account.php');
+    session_start();
 ?>
 
 
@@ -21,7 +22,7 @@
 
 
 
-<body>
+<body>  
     <div id="main_container">
         <div id="top">
             <div id="logo">
@@ -29,10 +30,7 @@
                 <img src="logo.png">
                 </a>
             </div>
-            <div id="search">
-                <input type="text" name="box" placeholder="Czego szukasz?" align="center"/>
-                <button class="search-box-button">&#128269;</button>
-            </div>
+            
 
             <div class="properties">
                 <div class ="shopping-cart">
@@ -50,7 +48,11 @@
                         <?php
                         if(isset($_SESSION['user']))
                         {
-                            display_if_user_logged();
+                            if($_SESSION['user']=='admin') display_admin_panel();
+                            else
+                            {
+                                display_if_user_logged();
+                            }
                         }else
                         {
                             display_if_user_not_logged();
@@ -62,12 +64,14 @@
         <nav>
             <ul>
                 <li><a href="category.php?category=Laptopy i tablety">Laptopy i tablety</a></li>
-                <li><a href="category.php?category=Telefony i GPS">Telefony i GPS</a></li>
-                <li><a href="category.php?category=Komputery stacjonarne">Komputery stacjonarne</a></li>
+                <li><a href="category.php?category=Telefony">Telefony</a></li>
+                <li><a href="category.php?category=Telewizory">Telewizory</a></li>
                 <li><a href="category.php?category=Podzespoły komputerowe">Podzespoły komputerowe</a></li>
                 <li><a href="category.php?category=Akcesoria">Akcesoria</a></li>
             </ul>
         </nav>
+        
+        
         <div class="wrapper">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
@@ -115,7 +119,7 @@
 
 
                 <?php
-                $items = get_items("okazja");
+                $items = get_items("okazja",null,null,null,null);
                 while ($row = mysqli_fetch_array($items, MYSQLI_ASSOC))
                 {
                     display_item($row['ProductName'],$row['Price'],$row['ProductImage'],$row['ProductId']);

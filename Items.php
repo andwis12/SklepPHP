@@ -4,7 +4,7 @@ require_once('db.php');
 require_once('account.php');
 
 
-function get_items($category)
+function get_items($category, $filter , $min , $max , $order_by)
 {
 
 
@@ -13,14 +13,62 @@ function get_items($category)
     if($connection->connect_errno!=0)
     {
         echo "Error : ".$connection->connect_errno;
+
+       
     }else
     {
-        if($result = @$connection->query("SELECT * FROM items INNER JOIN productcategories ON items.ProductId=productcategories.ProductId WHERE Category='$category'"));
+        $query = "SELECT * FROM items INNER JOIN productcategories ON items.ProductId=productcategories.ProductId WHERE Category='$category'";
+        if(isset($filter))
         {
-            return $result;
-        }
-    }
+            $query .= "AND Producent='$filter'";
+           
+            $result = @$connection->query($query);
 
+        }
+
+        if(!$max==null)
+        {
+            if(isset($min)) $min=0;
+
+            $query .="AND ( Price BETWEEN '$min' AND '$max' )";
+        }
+
+
+        if(!$order_by==null)
+        {
+            if($order_by=="Price ASC") $query .="ORDER BY Price ASC";
+            else $query .="ORDER BY Price DESC";
+        }
+        
+        
+        
+        $result = @$connection->query($query);
+          
+        
+    }
+    return $result;
+
+}
+
+function display_procudents($category)
+{
+    $connection = @new mysqli("localhost","root","","sklep");
+
+
+    $result = @$connection->query("SELECT DISTINCT(Producent) FROM items INNER JOIN productcategories ON items.ProductId=productcategories.ProductId WHERE Category='$category'");
+     
+    while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+    {
+        $marka = $row['Producent'];
+
+        echo "
+        <div class=\"ml-3 form-check\">
+            <input class=\"form-check-input\" type=\"radio\" name=\"marka\" id=\"marka\" value=\"$marka\">
+            <label class=\"form-check-label\" for=\"exampleRadios1\">$marka</label>
+        </div>
+        ";
+    }
+     
 }
 
 function display_item($name,$prize,$image,$id)
@@ -64,3 +112,5 @@ function print_footer()
 
     echo $template;
 }
+
+

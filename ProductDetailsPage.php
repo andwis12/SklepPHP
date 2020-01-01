@@ -21,8 +21,6 @@ if(isset($_REQUEST['id']) && !empty($_REQUEST['id']))
             
         }
     }
-
-
 }
 function display_item_details($Name,$Price,$ProductImage)
 {

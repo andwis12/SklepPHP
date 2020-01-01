@@ -2,10 +2,33 @@
 <?php
 
 require_once('Items.php');
+require_once('account.php');
+session_start();
+
+
 
 if(isset($_REQUEST['category']) && !empty($_REQUEST['category']))
 {
     $productsCategory = $_REQUEST['category'];
+}
+
+$filter=null;
+$min=null;
+$max=null;
+$order_by=null;
+
+if(isset($_POST['Filtruj']))
+{
+    if(isset($_POST['marka']))
+        $filter=$_POST['marka'];
+    if(isset($_POST['min']))
+        $min=0;
+    if(isset($_POST['max']))
+        $max=$_POST['max'];
+    
+    if(isset($_POST['sortuj']))
+        $order_by = $_POST['sortuj'];
+    
 }
 
 
@@ -23,6 +46,7 @@ if(isset($_REQUEST['category']) && !empty($_REQUEST['category']))
 </head>
 
 <body>
+    <div id="main_container">
         <div id="top">
             <div id="logo">
                 <a href="index.php">
@@ -33,33 +57,104 @@ if(isset($_REQUEST['category']) && !empty($_REQUEST['category']))
                 <input type="text" name="box" placeholder="Czego szukasz?" align="center"/>
                 <button class="search-box-button">&#128269;</button>
             </div>
-            <div class ="shopping-cart">
 
-            </div>
-            <div id="login">
-                <div>
-                    <img src="user-profile.png">
+            <div class="properties">
+                <div class ="shopping-cart">
+                    <div>
+                        <img src="shopping-cart.png">
+                    </div>
+                    <a href="koszyk.php">
+                        Koszyk
+                    </a>
                 </div>
-                    <?php
-                    if(isset($_SESSION['user']))
-                    {
-                        display_if_user_logged();
-                    }else
-                    {
-                        display_if_user_not_logged();
-                    }
-                    ?>
+                <div id="login">
+                    <div>
+                        <img src="user-profile.png">
+                    </div>
+                        <?php
+                        if(isset($_SESSION['user']))
+                        {
+                            display_if_user_logged();
+                        }else
+                        {
+                            display_if_user_not_logged();
+                        }
+                        ?>
+                </div>
             </div>
         </div>
         <nav>
             <ul>
                 <li><a href="category.php?category=Laptopy i tablety">Laptopy i tablety</a></li>
-                <li><a href="category.php?category=Telefony i GPS">Telefony i GPS</a></li>
-                <li><a href="category.php?category=Komputery stacjonarne">Komputery stacjonarne</a></li>
+                <li><a href="category.php?category=Telefony">Telefony</a></li>
+                <li><a href="category.php?category=Telewizory">Telewizory</a></li>
                 <li><a href="category.php?category=Podzespoły komputerowe">Podzespoły komputerowe</a></li>
                 <li><a href="category.php?category=Akcesoria">Akcesoria</a></li>
             </ul>
         </nav>
+        <div class="box">
+  <div class="box__content">
+    <div class="box__title">Filtruj</div>
+    <div class="box__description">
+      
+	  <div  id="searchbar"> 
+        <?php
+            $actual_link = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
+        ?>
+        <form class="mt-2 mb-2 ml-2 mr-2" action="category.php?category=<?php echo"$productsCategory";?>" method="POST" id="searchForm" />
+            <input class="form-control" type="text" name ="q" id="searchBox" placeholder="Szukaj" autocomplete= "off" onMouseDown="active();" onBlue="inactive();" />
+           	
+			<div id="options">
+				  <label class="ml-3 form-check-label">MARKA:</label>
+                  <?php
+                        display_procudents($productsCategory);
+                  ?>
+			</div>
+			  
+                <div id="options">
+                    <label class="ml-3 mb-2 form-check-label">CENA:</label>
+                    <div class="form-check">
+                    <label>Od:</label>
+                    <input  id="inputprice" type="text" class="mb-3" name ="min"  placeholder="min"  />
+                    <label>Do:</label>
+                    <input  id="inputprice" type="text" class=" mb-3 " name ="max"  placeholder="max"  />
+                    </div>
+                </div>
+                <div id="options">
+                    <label class="ml-3  form-check-label">Sortuj:</label>
+                
+                    <div class="ml-3 form-check">
+                        <input class="form-check-input" type="radio" name="sortuj" id="sortuj" value="Price ASC">
+                        <label class="form-check-label" for="exampleRadios1">Cena rosnąco</label>
+                    </div>
+
+
+                    <div class="ml-3 form-check">
+                        <input class="form-check-input" type="radio" name="sortuj" id="sortuj" value="Price DESC">
+                        <label class="form-check-label" for="exampleRadios2">Cena malejąco</label>
+                    </div>
+                    
+                    <div class="ml-3 form-check">
+                        <input class="form-check-input" type="radio" name="sortuj" id="sortuj" value="ProductName ASC">
+                        <label class="form-check-label" for="exampleRadios2">Nazwa A-Z</label>
+                    </div>
+                    
+                    <div class="ml-3 form-check">
+                        <input class="form-check-input" type="radio" name="sortuj" id="sortuj" value="ProductName DESC">
+                        <label class="form-check-label" for="exampleRadios2">Nazwa Z-A</label>
+                    </div>
+                </div>
+                <input  id="dropdownMenuButton" class="mt-2 btn btn-outline-success" type="submit" id="searchButton" name="Filtruj" value="Filtruj"/>
+        </form>
+        
+</div>	
+	  
+      </div>
+    </div>
+  </div>
+  
+
+        
         <div class="items">
 
 
@@ -71,16 +166,17 @@ if(isset($_REQUEST['category']) && !empty($_REQUEST['category']))
 
             <div class="row text-center py-5 ">
                 <?php
-                $items = get_items($productsCategory);
-                while ($row = mysqli_fetch_array($items, MYSQLI_ASSOC))
-                {
-                    display_item($row['ProductName'],$row['Price'],$row['ProductImage'],$row['ProductId']);
-                }
+                    $items = get_items($productsCategory,$filter,$min,$max,$order_by);
+                    while ($row = mysqli_fetch_array($items, MYSQLI_ASSOC))
+                    {
+                        display_item($row['ProductName'],$row['Price'],$row['ProductImage'],$row['ProductId']);
+                    }
                 ?>
             </div>
         </div>
         <?php print_footer();
         ?>
+        </div>
 
 
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
