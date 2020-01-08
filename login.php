@@ -27,6 +27,8 @@
                 <input type="text" class="input-field" placeholder="Username" name="login" required >
                 <input type="email" class="input-field" placeholder="Email" name="email" required>
                 <input type="text" class="input-field" placeholder="Password"name="password" required >
+                <input type="text" class="input-field" placeholder="Imię" name="name" required >
+                <input type="text" class="input-field" placeholder="Nazwisko" name="surname" required >
                 <button type="submit" class="submit-btn">Zarejestruj</button>
             </form>
         </div>

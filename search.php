@@ -1,67 +1,11 @@
-<?php
-
-
-require_once('db.php');
-
-if(isset($_REQUEST['id']) && !empty($_REQUEST['id']))
-{
-    $productID = $_REQUEST['id'];
-
-    $connection = @new mysqli($host,$db_user,$db_password,$db_name);
-
-    if($connection->connect_errno!=0)
-    {
-        echo "Error : ".$connection->connect_errno;
-    }else
-    {
-        if($result = @$connection->query("SELECT * FROM items WHERE ProductId='$productID'"))
-        {
-            $item = mysqli_fetch_array($result, MYSQLI_ASSOC);
-
-            
-        }
-    }
-}
-function display_item_details($Name,$Price,$ProductImage)
-{
-    $id = $_REQUEST['id'];
-
-    echo 
-    "
-        <div class=\"row\">
-                <div class=\"col-md-8\">
-                    <img src=\"$ProductImage\" class=\"img-fluid\">
-                </div>
-
-                <div class=\"col-md-4\">
-                    <div class=\"item-details\">
-                        <h5 > $Name </h5>
-                        </br>
-                        <h5 >$Price PLN</h5>
-                        </br>
-
-                        <a href=\"AddToCart.php?action=addToCart&id=$id\"><button type=\"button\" class=\"btn btn-primary\">Do koszyka</button></a>
-                    </div>
-                </div>
-        </div>
-    
-    ";
-}
-
-?>
-
 <!DOCTYPE HTML>
 <?php
-    session_start();
     require_once('Items.php');
-
-
-
+    require_once('account.php');
+    session_start();
 ?>
 
 
-
-<html lang="pl">
 
 <head>
     <meta charset="utf-8" />
@@ -71,18 +15,23 @@ function display_item_details($Name,$Price,$ProductImage)
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <link rel="stylesheet" href="style/Style.css"/>
-
 </head>
 
+
 <body>
-<div id="main_container">
-<div id="top">
+    <div id="main_container">
+        <div id="top">
             <div id="logo">
                 <a href="index.php">
                 <img src="logo.png">
                 </a>
             </div>
-            
+            <div>
+                <form action="search.php" method="POST">
+                <input type="text" name="search" placeholder="Czego szukasz?">
+                <button type="submit" name="submit-search">Szukaj</button>
+                </form>
+            </div>
 
             <div class="properties">
                 <div class ="shopping-cart">
@@ -122,23 +71,47 @@ function display_item_details($Name,$Price,$ProductImage)
                 <li><a href="category.php?category=Akcesoria">Akcesoria</a></li>
             </ul>
         </nav>
-
-        <div class="container">
-            <?php
-                display_item_details($item['ProductName'],$item['Price'],$item['ProductImage'])
-            ?>
+        <div class="items">
+            <div class="paragraph">
+                Wyniki wyszukiwania
+            </div>
+            <div class="row text-center py-5 ">
+                <?php
+                    if(isset($_POST['submit-search']))
+                    {
+                        $conn = mysqli_connect("localhost","root","","sklep");
+                        $search = mysqli_real_escape_string($conn,$_POST['search']);
+                        $sql = "SELECT * FROM items WHERE ProductName LIKE '%$search%' OR Producent LIKE '%$search%'";
                         
+                        $result = mysqli_query($conn,$sql);
+                        $queryResult = mysqli_num_rows($result);
+
+                        if($queryResult>0)
+                        {
+                            while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+                            {
+                                display_item($row['ProductName'],$row['Price'],$row['ProductImage'],$row['ProductId']);
+                            }
+                        }else
+                        {
+                            echo "
+                            <div class=\"no-results\">
+                                <h1>Brak wyników<h1>
+                            </div>";
+                        }
+                    }else
+                    {
+                        echo "
+                        <div class=\"no-results\">
+                            <h1>Brak wyników<h1>
+                        </div>";
+                    }
+                ?>
+            </div>
         </div>
-        <?php
-            print_footer();
-        ?>
     </div>
-    
+    <?php print_footer();
+        ?>
+  
 
-
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
-
-

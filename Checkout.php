@@ -92,19 +92,19 @@
     <div class="checkout-container">
     <div class="crazy-margin">
     <div class="col-md-8 order-md-1">
-      <h4 class="mb-3">Billing address</h4>
-      <form class="needs-validation" action="Order.php" novalidate>
+      <h4 class="mb-3">Dane do wysyłki</h4>
+      <form class="needs-validation" action="Order.php" method="post" novalidate>
         <div class="row">
           <div class="col-md-6 mb-3">
             <label for="firstName">Imię</label>
-            <input type="text" class="form-control" id="firstName" placeholder="<?php echo $imie; ?>" value="" required>
+            <input type="text" class="form-control" name="firstName" id="firstName" value="<?php echo $imie; ?>" value="" required>
             <div class="invalid-feedback">
               Valid first name is required.
             </div>
           </div>
           <div class="col-md-6 mb-3">
             <label for="lastName">Nazwisko</label>
-            <input type="text" class="form-control" id="lastName" placeholder="<?php echo $nazwisko;?>" value="" required>
+            <input type="text" class="form-control" name="lastName" id="lastName" value="<?php echo $nazwisko;?>" value="" required>
             <div class="invalid-feedback">
               Valid last name is required.
             </div>
@@ -117,7 +117,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text">@</span>
             </div>
-            <input type="text" class="form-control" id="username" placeholder="<?php echo $username;?>" required>
+            <input type="text" class="form-control" id="username" value="<?php echo $username;?>" required>
             <div class="invalid-feedback" style="width: 100%;">
               Your username is required.
             </div>
@@ -125,8 +125,8 @@
         </div>
 
         <div class="mb-3">
-          <label for="email">Email <span class="text-muted">(Optional)</span></label>
-          <input type="email" class="form-control" id="email" placeholder="<?php echo $email; ?>">
+          <label for="email">Email <span class="text-muted">(Opcjonalnie)</span></label>
+          <input type="email" class="form-control" id="email" value="<?php echo $email; ?>">
           <div class="invalid-feedback">
             Please enter a valid email address for shipping updates.
           </div>
@@ -134,41 +134,31 @@
 
         <div class="mb-3">
           <label for="address">Adres</label>
-          <input type="text" class="form-control" id="address" placeholder="<?php echo $useradress['Adress'];?>" required>
+          <input type="text" class="form-control" name="address" id="address" value="" required>
           <div class="invalid-feedback">
             Please enter your shipping address.
           </div>
         </div>
 
         <div class="mb-3">
-          <label for="address2">Telefon<span class="text-muted">(Optional)</span></label>
+          <label for="address2">Telefon<span class="text-muted">(Opcjonalnie)</span></label>
           <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
         </div>
 
         <div class="row">
           <div class="col-md-5 mb-3">
-            <label for="country">Country</label>
+            <label for="country">Kraj</label>
             <select class="custom-select d-block w-100" id="country" required>
-              <option value="">Choose...</option>
-              <option>United States</option>
+              <option value="">Wybierz...</option>
+              <option>Polska</option>
             </select>
             <div class="invalid-feedback">
               Please select a valid country.
             </div>
           </div>
-          <div class="col-md-4 mb-3">
-            <label for="state">State</label>
-            <select class="custom-select d-block w-100" id="state" required>
-              <option value="">Choose...</option>
-              <option>California</option>
-            </select>
-            <div class="invalid-feedback">
-              Please provide a valid state.
-            </div>
-          </div>
           <div class="col-md-3 mb-3">
-            <label for="zip">Zip</label>
-            <input type="text" class="form-control" id="zip" placeholder="" required>
+            <label for="zip">Kod Pocztowy</label>
+            <input type="text" class="form-control" name="zip" id="zip" placeholder="" required>
             <div class="invalid-feedback">
               Zip code required.
             </div>

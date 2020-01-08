@@ -30,7 +30,12 @@
                 <img src="logo.png">
                 </a>
             </div>
-            
+            <div class="search-div">
+                <form action="search.php" method="POST">
+                <input type="text" name="search" placeholder="Czego szukasz?">
+                <button type="submit" name="submit-search">&#128269;</button>
+                </form>
+            </div>
 
             <div class="properties">
                 <div class ="shopping-cart">
@@ -128,9 +133,10 @@
 
             </div>
         </div>
-        <?php print_footer();
+       
+    </div> 
+    <?php print_footer();
         ?>
-    </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

@@ -13,13 +13,23 @@ if($connection->connect_errno!=0)
     $name = $_SESSION['user'];
     if($result = @$connection->query("SELECT * FROM customers WHERE Login='$name'"))
     {
-        $persondetails = mysqli_fetch_array($result, MYSQLI_ASSOC);      
+        $persondetails = mysqli_fetch_array($result, MYSQLI_ASSOC);
+        
+        $username = $_POST['firstName'];
+        $lastname = $_POST['lastName'];
+        $adress = $_POST['address'];
+        $postal_code = $_POST['zip'];
+
+        $final_adress= "";
+        $final_adress .= $adress;
+        $final_adress .= " ";
+        $final_adress .= $postal_code;
 
         $id = $persondetails['CustomerId'];
         $date = date("Y/m/d");
         $Status = "W realizacji";
 
-        $add_order = $connection->query("INSERT into orders(CustomerId,Date,Status) VALUES ('$id','$date','$Status')");
+        $add_order = $connection->query("INSERT into orders(CustomerId,Date,Status,Adress) VALUES ('$id','$date','$Status','$final_adress')");
         $order_index = $connection->insert_id;
         
 

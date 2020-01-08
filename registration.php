@@ -13,6 +13,9 @@
         $username = $_POST['login'];
         $email = $_POST['email'];
         $password = $_POST['password'];
+        $name = $_POST['name'];
+        $surname = $_POST['surname'];
+
 
         $query = $connection->query("SELECT * FROM customers WHERE Login='$username' ");
 
@@ -24,7 +27,9 @@
 
         if(!$query->num_rows>0)
         {
-            $add = $connection->query("INSERT into customers(Login,email,Hasło) VALUES ('$username','$email','$password')");
+            $password_hash = password_hash($password,PASSWORD_DEFAULT);
+
+            $add = $connection->query("INSERT into customers(Login,email,Hasło,Imię,Nazwisko) VALUES ('$username','$email','$password_hash','$name','$surname')");
             header("Location:login.php");
 
         }else

@@ -86,8 +86,11 @@ function display_user_orders()
             <div class=\"content\">";
  
             display_items_in_order($OrderId);
-     
-           echo" </div>";
+
+            echo 'Na adres : '.$row['Adress'];
+            
+            echo"</div>";
+           
     }
 
 }
@@ -132,6 +135,7 @@ function display_items_in_order($orderId)
     }
     echo '</tbody>
     </table>';
+  
 
 }
 

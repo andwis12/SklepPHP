@@ -15,18 +15,21 @@
 
         $_SESSION['user'] = $login;
 
-        $sql = "SELECT * FROM customers WHERE Login='$login' AND Hasło ='$password'";
-        
-
+        $sql = "SELECT * FROM customers WHERE Login='$login'";
         if($result = @$connection->query($sql))
         {
             $userow = $result->num_rows;
             if($userow>0)
             {
+                
+
                 $userdet = mysqli_fetch_array($result, MYSQLI_ASSOC);
-                $_SESSION['userid']=$userdet['CustomerId'];
-                echo "udało ci się zalogować";
-                header('Location: index.php');
+                if(password_verify($password,$userdet['Hasło']))
+                {
+                    $_SESSION['userid']=$userdet['CustomerId'];
+                    echo "udało ci się zalogować";
+                    header('Location: index.php');
+                }
             }else
             {
                 echo "Błędny login lub hasło";
